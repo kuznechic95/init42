@@ -1,0 +1,7 @@
+nslookup slash16.org 8.8.8.8
+
+# Nslookup is a program to query Internet domain name servers.
+# https://info.nic.ru/st/8/out_256.shtml
+
+# The Answer section shows us what the name server responded with:
+# dig slash16.org +short

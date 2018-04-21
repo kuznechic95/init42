@@ -1,0 +1,5 @@
+echo 10.111.254.254
+
+# 'nat' stands for 'Network Address Translation'. nat1 is the device that makes the link between local network and outside world
+# 169.254.  0.  0 - 169.254.255.255
+# Если IP-адрес вашего компьютера находится в одном из этих диапазонов, то есть начинается с 10. или с 192.168. или с 172.nn. (где nn — # # от 16 до 31), то это локальный (внутренний) адрес и вы точно находитесь за NAT.

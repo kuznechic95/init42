@@ -1,0 +1,15 @@
+echo "crontab -l 0 4 * * * apt-get update >> /var/log/update_script.log && apt-get upgrade >> /var/log/update_script.log" >> tmpfile
+sh tmpfile
+rm tmpfile
+
+
+echo 'apt-get update && apt-get upgrade >> /var/log/update_script.log' >> ~/apt_update.sh
+
+# enter the following line to add it to crontab once and schedule the script at 4 am once per week:
+# echo '0  4    * * 1   root    sh ~/apt_update.sh' | crontab
+# crontab -l to check current crontabs and crontab -e to edit them
+
+
+
+echo "0 4 * * 0 /root/42init/02" >> /root/crontab
+crontab -u root ~/crontab

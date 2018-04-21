@@ -1,0 +1,3 @@
+echo /etc/hosts
+
+#ls -l /etc/hosts -> no symbolic link

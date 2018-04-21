@@ -1,0 +1,5 @@
+Amazon AWS Network Operations
+
+# ping -q -c 1 -t 1 slash16.org | grep PING | sed -e "s/).*//" | sed -e "s/.*(//"
+# whois 52.84.199.174 | grep OrgNOCName | awk '{ for(i=2; i<NF; i++) printf "%s",$i OFS; if(NF) printf "%s",$NF; printf ORS}'
+# https://www.godaddy.com/garage/who-hosts-this-website-tips-and-tools-for-finding-ip-address-dns-details-and-more/

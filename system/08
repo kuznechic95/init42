@@ -1,0 +1,2 @@
+echo ~/.ssh/authorized_keys
+# Defined in '/etc/ssh/sshd_config' after header #AuthorizedKeysFile.

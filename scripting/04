@@ -1,0 +1,75 @@
+
+md5sum /etc/crontab > /root/newsum
+if [ -f /root/oldsum ]
+then
+  if [ "$(diff /root/newsum /root/oldsum)" != "" ]
+  then echo "/etc/crontab was changed" | mail -s "Crontab changed" root
+  fi
+fi
+cp /root/newsum /root/oldsum
+
+
+echo "0 0 * * * /root/42init/04" >> /root/crontab
+crontab -u root ~/crontab
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Write a script which monitors the modifications made to the /etc/crontab file and
+# sends an e-mail to root if the file is modified. Create a scheduled task to run this
+# script everyday at midnight.
+
+!/bin/bash
+
+MD5SUM='cat /root/crontabsum'
+NEWSUM='md5sum /etc/crontab | cut -d " " -f 1'
+
+if [ "$MD5SUM" != "$NEWSUM" ]
+then
+	md5sum /etc/crontab | cut -d " " -f 1 > /root/crontabsum
+	mail -s "The file crontab was modified" root@localhost.com < /etc/crontab
+fi
+
+# add this line to /etc/crontab
+# 0 0    0 * 0-6   root    sh /root/crontab_check.sh
+
+
+
+
+
+
+
+
+
+
+
+
+if [ ! -f /etc/crontab_key ]
+then
+	md5sum /etc/crontab > /etc/crontab_key
+fi
+
+md5sum /etc/contrab > tmp
+DIFF=$(diff /etc/crontab_key tmp)
+rm tmp
+
+if [ "$DIFF" != "" ]
+then
+	mail -s "Crontab modified" root < /etc/crontab
+	md5sum /etc/crontab > /etc/crontab_key
+fi
+
+# Ajouter sur crontab avec echo "0 0 * * * root sudo sh /root/04.sh" >> /etc/crontab
+
+
