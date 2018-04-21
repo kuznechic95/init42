@@ -1,4 +1,0 @@
-/var/run/resolv.conf
-
-# use 'ls -l etc/resolv.conf' to that it is symbilic link to /var/run/resolv.conf
-# use scutil --dns | grep nameserver | awk '{print $3}' to see the the IP address of the DNS server
