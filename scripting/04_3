@@ -1,11 +1,11 @@
 #!/bin/bash
 
-OLDCHECK = '~/crontabsum'
+OLDCHECK = 'etc/crontabsum'
 MD5SUM='cat etc/crontab'
 NEWSUM='md5sum /etc/crontab | cut -d " " -f 1'
 
 if [!$OLDCHECK]
-	echo '0 0 * * *   root    sh ~/crontab_check.sh' | crontab
+	echo '0 0 * * *   root    sh etc/crontab_check.sh' | crontab
 fi
 if [ "$OLDCHECK" != "$NEWSUM" ]
 then
