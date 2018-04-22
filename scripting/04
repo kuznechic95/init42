@@ -1,30 +1,9 @@
 #!/bin/bash
 
-MD5SUM='cat ~/crontabsum'
-NEWSUM='md5sum /etc/crontab | cut -d " " -f 1'
-
-if [ "$MD5SUM" != "$NEWSUM" ]
-then
-	md5sum /etc/crontab | cut -d " " -f 1 > ~/crontabsum
-	mail -s "The file crontab was modified" root@localhost.com < /etc/crontab
-fi
-
-echo '0 0 * * *   root    sh ~/crontab_check.sh' | crontab 
-
-
-
-
-
-
-
-
-
-
-
-
 if [ ! -f /etc/crontab_key ]
 then
 	md5sum /etc/crontab > /etc/crontab_key
+	echo "0 0 * * * root sudo sh /root/04.sh" >> /etc/crontab
 fi
 
 md5sum /etc/contrab > tmp
@@ -33,10 +12,6 @@ rm tmp
 
 if [ "$DIFF" != "" ]
 then
-	mail -s "Crontab modified" root < /etc/crontab
+	mail -s "Crontab modified" root@localhost.com < /etc/crontab
 	md5sum /etc/crontab > /etc/crontab_key
 fi
-
-# Ajouter sur crontab avec echo "0 0 * * * root sudo sh /root/04.sh" >> /etc/crontab
-
-
