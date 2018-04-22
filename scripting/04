@@ -1,17 +1,23 @@
 #!/bin/bash
 
-if [ ! -f /etc/crontab_key ]
-then
-	md5sum /etc/crontab > /etc/crontab_key
-	echo "0 0 * * * root sudo sh ~/04.sh" >> /etc/crontab
+
+TARGET=/etc/crontab
+BACKUP=/etc/.crontab_backup
+
+if [ ! -e $BACKUP ]; then
+	echo "Backup does not exist"
+	sudo cp $TARGET $BACKUP
+	exit 0
 fi
 
-md5sum /etc/contrab > tmp_crontab_key
-DIFF=$(diff /etc/crontab_key tmp_crontab_key)
-rm tmp_crontab_key
+MD5=`md5sum $TARGET | awk '{ print $1 }'`
+MD5_BACKUP=`md5sum $BACKUP | awk '{ print $1 }'`
 
-if [ "$DIFF" != "" ]
-then
-	mail -s "Crontab modified" root@localhost.com < /etc/crontab
-	md5sum /etc/crontab > /etc/crontab_key
+if [ -z $MD5 ] | [ -z $MD5_BACKUP ]; then
+	echo "MD5 is empty."
 fi
+
+if [ "$MD5" != "$MD5_BACKUP" ]; then
+	echo "Crontab has been modified" | mail -s "Report" root
+fi
+
