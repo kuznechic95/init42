@@ -3,12 +3,12 @@
 if [ ! -f /etc/crontab_key ]
 then
 	md5sum /etc/crontab > /etc/crontab_key
-	echo "0 0 * * * root sudo sh /root/04.sh" >> /etc/crontab
+	echo "0 0 * * * root sudo sh ~/04.sh" >> /etc/crontab
 fi
 
-md5sum /etc/contrab > tmp
-DIFF=$(diff /etc/crontab_key tmp)
-rm tmp
+md5sum /etc/contrab > tmp_crontab_key
+DIFF=$(diff /etc/crontab_key tmp_crontab_key)
+rm tmp_crontab_key
 
 if [ "$DIFF" != "" ]
 then
