@@ -1,0 +1,14 @@
+#!/bin/bash
+
+OLDCHECK = '~/crontabsum'
+MD5SUM='cat etc/crontab'
+NEWSUM='md5sum /etc/crontab | cut -d " " -f 1'
+
+if [!$OLDCHECK]
+	echo '0 0 * * *   root    sh ~/crontab_check.sh' | crontab
+fi
+if [ "$OLDCHECK" != "$NEWSUM" ]
+then
+	md5sum /etc/crontab | cut -d " " -f 1 > $OLDCHECK
+	mail -s "The file crontab was modified" root@localhost.com < /etc/crontab
+fi
