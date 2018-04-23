@@ -1,0 +1,5 @@
+cat /var/run/sshd.pid
+
+# service ssh status | grep 'Main PID' | awk -F '[ ]' '{print $3" " $4}'
+# cat /var/run/sshd.pid
+# pidof sshd
