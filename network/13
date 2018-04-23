@@ -1,6 +1,8 @@
-DHCP
+DNS
 
-#ipconfig getpacket en0
-# DHCP is answer, but DNS in real
+# ipconfig getpacket en0 
+#	gives no DHCP !
+# DHCP is answer is old form, but DNS in real and in new one
 # nslookup 10.51.1.253
-# ns1 - DNS
+#	gives ns1
+# ns1 is DNS
