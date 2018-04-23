@@ -2,24 +2,29 @@
 
 BACKUP=/etc/crontab_backup
 ORIGINAL=/var/spool/cron/crontabs/root
-if [ ! -f $BACKUP ]
+if [ ! -f $BACKUP && -f $ORIGINAL ]
 then
 	sudo touch $BACKUP;
 	sudo chmod 666 $BACKUP;
-	echo '0 0 * * *   root    sh ~/scripts/04' >> crontab
 fi
 
-if [ -f $ORIGINAL ] && [[ $(md5sum $BACKUP | cut -d' ' -f1) == $(md5sum $ORIGINAL | cut -d' ' -f1) ]]
-then
-	echo \"Crontab has not been modified\"
-else
-	echo \"Warning crontab has been modified !\"
-	echo \"Warning crontab has been modified !\" | mailx -s "Crontab is modified" kuznechic95@gmail.com
+if [ -f $ORIGINAL && -f $BACKUP ]
+	then
+		if [[ $(md5sum $BACKUP | cut -d' ' -f1) == $(md5sum $ORIGINAL | cut -d' ' -f1) ]]
+			then
+				echo \"Crontab changes checker: crontab has not been modified\"
+			else
+				echo \"Crontab changes checker: WARNING crontab has been modified !\"
+				echo \"Crontab changes checker: WARNING crontab has been modified !\" | mail -s "Crontab is modified" root@localhost.com
+		fi
+	else
+		if [ -f $ORIGINAL ]
+			then
+				cp $ORIGINAL $BACKUP;
+			else
+				rm $BACKUP;
+				crontab -l
+		fi
 fi
 
-if [ -f $ORIGINAL ]
-then
-	cp $ORIGINAL $BACKUP;
-else
-	rm $BACKUP;
-fi
+# echo '0 0 * * *   root    sh ~/scripts/04' >> crontab
