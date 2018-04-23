@@ -1,0 +1,10 @@
+netstat -nr | grep default | head -1 | awk '{print $2}'
+
+# The netstat command symbolically displays the contents of various net-
+# work-related data structures.
+
+# -n    Show network addresses as numbers (normally netstat interprets
+#       addresses and attempts to display them symbolically).  This option
+#       may be used with any of the display formats.
+
+# -r    Show the routing tables. (Таблица маршрутизации)

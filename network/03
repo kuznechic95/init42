@@ -1,0 +1,7 @@
+ifconfig en4 | grep -w ether | awk '{print $2}'
+
+# en1 is the Wi-Fi card, but it is off
+
+# networksetup -listallhardwareports
+# Bluetooth PAN en4
+# ifconfig en4 | grep -w ether | awk '{print $2}'

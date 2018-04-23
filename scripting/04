@@ -1,11 +1,20 @@
 #!/bin/bash
 
-BACKUP=/etc/crontab_backup
-ORIGINAL=/var/spool/cron/crontabs/root
+BACKUP=/etc/.crontab_temp_backup
+ORIGINAL=/etc/.crontab_temp
+
+crontab -l > $ORIGINAL
+
 if [[ ! -f $BACKUP && -f $ORIGINAL ]]
 then
 	sudo touch $BACKUP;
-	sudo chmod 666 $BACKUP;
+	sudo chmod 644 $BACKUP;
+	cp $ORIGINAL $BACKUP;
+	echo '0 0 * * *   root    sh /init42/scripts/04'  >	.sh_temp2
+	crontab -l > .crontab_temp2
+	cat .sh_temp2 >> .crontab_temp2
+	cat .crontab_temp | crontab
+
 fi
 
 if [[ -f $ORIGINAL && -f $BACKUP ]]
@@ -23,5 +32,3 @@ if [[ -f $ORIGINAL && -f $BACKUP ]]
 		fi
 		crontab -l;
 fi
-
-# echo '0 0 * * *   root    sh init42/scripts/04' | crontab

@@ -1,0 +1,6 @@
+DHCP
+
+#ipconfig getpacket en0
+# DHCP is answer, but DNS in real
+# nslookup 10.51.1.253
+# ns1 - DNS

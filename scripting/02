@@ -1,7 +1,10 @@
 #!/bin/bash
 
-echo 'apt-get update && apt-get upgrade >> /var/log/update_script.log' >> ~/apt_update.sh
-echo '0 4 * * 0   root    sh ~/apt_update.sh' | crontab
+echo 'apt-get update && apt-get upgrade >> /var/log/update_script.log' > ~/apt_update.sh
+echo '0 4 * * 0   root    sh ~/apt_update.sh' > .sh_temp
+crontab -l > .crontab_temp
+cat .sh_temp >> .crontab_temp
+cat .crontab_temp | crontab
 
 # apt_update.sh is created in _user_name_(root)
 # crontab -l to check current crontabs and crontab -e to edit them
