@@ -18,10 +18,10 @@ if [[ -f $ORIGINAL && -f $BACKUP ]]
 			cp $ORIGINAL $BACKUP;
 		fi
 	else
-		if [[ ! -f $ORIGINAL && -f $BACKUP]]; then
+		if [[ ! -f $ORIGINAL && -f $BACKUP ]]; then
 			rm $BACKUP;
 		fi
-		crontab -l
+		crontab -l;
 fi
 
-# echo '0 0 * * *   root    sh ~/scripts/04' | crontab
+# echo '0 0 * * *   root    sh init42/scripts/04' | crontab
